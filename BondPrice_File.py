@@ -1,18 +1,10 @@
 import numpy as np
-
 def getBondPrice(y, face, couponRate, m, ppy=1):
-    
-    r = y / ppy
     n = m * ppy
-    c = face * couponRate / ppy
-  
+    coupon = face * couponRate / ppy
     t = np.arange(1, n + 1)
-    
-    discount = 1 / (1 + r) ** t
-    
-    cashflows = np.full(n, c)
-    cashflows[-1] += face
-    
-    price = np.sum(cashflows * discount)
-    
-    return price
+    pvm = (1 + y / ppy) ** (-t)
+    pv_coupon = coupon * np.sum(pvm)
+    pv_face = face * (1 + y / ppy) ** (-n)
+    bondprice = pv_coupon + pv_face
+    return(bondprice)
