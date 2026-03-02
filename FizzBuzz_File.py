@@ -1,15 +1,16 @@
 import numpy as np
 
 def FizzBuzz(start, finish):
+
     nums = np.arange(start, finish + 1)
-    out = np.array(nums, dtype=object)
 
-    mask3 = nums % 3 == 0
-    mask5 = nums % 5 == 0
-    mask15 = mask3 & mask5
+    out = nums.astype(object)
 
-    out[mask3] = "fizz"
-    out[mask5] = "buzz"
-    out[mask15] = "fizzbuzz"
+    fizz = nums % 3 == 0
+    buzz = nums % 5 == 0
 
-    return out
+    out[fizz] = "fizz"
+    out[buzz] = "buzz"
+    out[fizz & buzz] = "fizzbuzz"
+
+    return list(out)
